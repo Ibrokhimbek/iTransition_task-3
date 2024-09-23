@@ -14,6 +14,24 @@ function validateArguments(args) {
   return args;
 }
 
+// class for HMAC generation
+class HMACGenerator {
+  constructor() {
+    this.key = crypto.randomBytes(32);
+  }
+
+  generate(message) {
+    const hmac = crypto.createHmac("sha256", this.key);
+    hmac.update(message);
+    return hmac.digest();
+  }
+
+  getKey() {
+    return this.key.toString("hex");
+  }
+}
+new HMACGenerator();
+
 // Main function
 function main() {
   const args = process.argv.slice(2);
